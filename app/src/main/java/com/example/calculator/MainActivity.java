@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -17,8 +16,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final int MENU_RESET_ID = 1;
     final int MENU_QUIT_ID = 2;
 
-    Button btnAdd, btnSub, btnMult, btnDiv, btnComma, btnPersent, btn1, btn2, btn3, btn4, btn5,
-            btn6, btn7, btn8, btn9, btn0, btnRes, btnCe,btnC;
+    Button btnAdd, btnSub, btnMult, btnDiv, btnComma, btnBack, btn1, btn2, btn3, btn4, btn5,
+            btn6, btn7, btn8, btn9, btn0, btnRes, btnCe, btnC;
     TextView tvResult, tvInfo;
     float a, b, res;
     String oper = "";
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvResult = (TextView) findViewById(R.id.tvResault);
         btnRes = (Button) findViewById(R.id.btnRes);
         btnComma = (Button) findViewById(R.id.btnComma);
-        btnPersent = (Button) findViewById(R.id.btnPersent);
+        btnBack = (Button) findViewById(R.id.btnBack);
         btn1 = (Button) findViewById(R.id.btn1);
         btn2 = (Button) findViewById(R.id.btn2);
         btn3 = (Button) findViewById(R.id.btn3);
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn0 = (Button) findViewById(R.id.btn0);
         btnCe = (Button) findViewById(R.id.btnCe);
         tvInfo = (TextView) findViewById(R.id.tvInfo);
-        btnC=(Button)findViewById(R.id.btnC);
+        btnC = (Button) findViewById(R.id.btnC);
 
 
         btnComma.setOnClickListener(this);
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnMult.setOnClickListener(this);
         btnDiv.setOnClickListener(this);
         btnRes.setOnClickListener(this);
-        btnPersent.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
@@ -74,12 +73,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnC.setOnClickListener(this);
     }
 
-    public void aFormar(){
+    public void aFormar() {
         a = Float.parseFloat(tvResult.getText().toString());
         tvResult.setText("");
         //tvInfo.setText(new Float(a).toString().replaceAll("\\.?0*$", "") + " " + oper + " ");
-        tvInfo.append("\n"+new Float(a).toString().replaceAll("\\.?0*$", "") + " " + oper + " ");
-        comma=true;
+        tvInfo.append("\n" + new Float(a).toString().replaceAll("\\.?0*$", "") + " " + oper + " ");
+        comma = true;
     }
 
     @Override
@@ -103,10 +102,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 aFormar();
                 break;
             case R.id.btn0:
-                if(tvResult.getText().toString().equals("0")){
+                if (tvResult.getText().toString().equals("0")) {
                     tvResult.setText("0.0");
-                    comma=false;
-                }else{
+                    comma = false;
+                } else {
                     tvResult.append("0");
                 }
                 break;
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnC:
                 tvResult.setText("");
-                comma=true;
+                comma = true;
                 break;
             case R.id.btnComma:
                 if (TextUtils.isEmpty(tvResult.getText().toString())) {
@@ -155,6 +154,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     tvResult.append(".");
                     comma = false;
                 }
+                break;
+            case R.id.btnBack:
+                String s=tvResult.getText().toString();
+                s= s.substring(0,(s.length()-1));
+                tvResult.setText(s);
                 break;
             default:
                 break;
