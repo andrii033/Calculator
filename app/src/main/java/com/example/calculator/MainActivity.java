@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     final int MENU_RESET_ID = 1;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnAdd, btnSub, btnMult, btnDiv, btnComma, btnBack, btn1, btn2, btn3, btn4, btn5,
             btn6, btn7, btn8, btn9, btn0, btnRes, btnCe, btnC;
     TextView tvResult, tvInfo;
-    float a, b, res;
+    BigDecimal a, b, res;
     String oper = "";
     boolean comma = true;
 
@@ -74,10 +76,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void aFormar() {
-        a = Float.parseFloat(tvResult.getText().toString());
+        //a = Float.parseFloat(tvResult.getText().toString());
+        a=BigDecimal.valueOf(Double.valueOf(tvResult.getText().toString()));
         tvResult.setText("");
-        //tvInfo.setText(new Float(a).toString().replaceAll("\\.?0*$", "") + " " + oper + " ");
-        tvInfo.append("\n" + new Float(a).toString().replaceAll("\\.?0*$", "") + " " + oper + " ");
+
+        //tvInfo.append("\n" + new Float(a).toString().replaceAll("\\.?0*$", "") + " " + oper + " ");
+        tvInfo.append("\n" + a.toString().replaceAll("\\.?0*$", "") + " " + oper + " ");
         comma = true;
     }
 
@@ -164,25 +168,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         if (view.getId() == R.id.btnRes) {
-            b = Float.parseFloat(tvResult.getText().toString());
+            //b = Float.parseFloat(tvResult.getText().toString());
+            b=BigDecimal.valueOf(Double.valueOf(tvResult.getText().toString()));
             switch (oper) {
                 case "+":
-                    res = a + b;
+                    res = a.add(b);
                     break;
                 case "-":
-                    res = a - b;
+                    res = a.subtract(b);
                     break;
                 case "/":
-                    res = a / b;
+                    res = a.divide(b);
                     break;
                 case "*":
-                    res = a * b;
+                    res = a.multiply(b);
                     break;
             }
+//            tvResult.setText(new Float(res).toString().replaceAll("\\.?0*$", ""));
+//            tvInfo.append(new Float(b).toString().replaceAll("\\.?0*$", "") + " = " + new Float(res).toString().replaceAll("\\.?0*$", ""));
+//            //tvInfo.append("\n");
 
-            //tvResult.setText("");
-            tvInfo.append(new Float(b).toString().replaceAll("\\.?0*$", "") + " = " + new Float(res).toString().replaceAll("\\.?0*$", ""));
-            //tvInfo.append("\n");
+            tvResult.setText(res.toString().replaceAll("\\.?0*$", ""));
+            tvInfo.append(b.toString().replaceAll("\\.?0*$", "") + " = " + res.toString().replaceAll("\\.?0*$", ""));
 
         }
 
